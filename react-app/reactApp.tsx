@@ -3,8 +3,14 @@ import ReactDOM from 'react-dom/client';
 import '@mantine/core/styles.css';
 import FAQ from './components/FAQ';
 import { createTheme, MantineProvider } from '@mantine/core'
+import LiveGames from './components/LiveGames/LiveGames';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 
 function App(): React.ReactElement {
+  const queryClient = new QueryClient()
 
   const theme = createTheme({
     fontFamily: 'Open Sans, sans-serif',
@@ -12,7 +18,10 @@ function App(): React.ReactElement {
   });
 
   return <MantineProvider theme={theme}>
-    <FAQ />
+    <QueryClientProvider client={queryClient}>
+      <LiveGames />
+      <FAQ />
+    </QueryClientProvider>
   </MantineProvider>;
 }
 
